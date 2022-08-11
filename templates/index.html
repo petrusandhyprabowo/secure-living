@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Living</title>
+  <!--     Fonts and icons     -->
+<!--  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />-->
+  <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- CSS Files -->
+  <link id="pagestyle" href="../assets/css/soft-ui-dashboard.css?v=1.0.6" rel="stylesheet" />
+  <style>
+    .custom-text-gray{
+      color: gray;
+    }
+    .custom-text-orange{
+      color: orange;
+    }
+    .custom-text-red{
+      color: red;
+    }
+  </style>
+</head>
+<body class="bg-gray-100">
+<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ps ps--active-y">
+  <div class="container-fluid py-2 px-4 mb-0">
+    <nav aria-label="breadcrumb">
+      <h5 class="font-weight-bolder mb-0"><img src="../assets/img/logos/logo.png" style="width:3%"> Secure Living Dashboard || Property Developer - Cluster Name</h5>
+    </nav>
+  </div>
+  {% block content %}
+    <div class="container-fluid pt-1 pb-4">
+      <div class="row">
+        <div class="col-6">
+          <div class="row">
+            <div class="col">
+              <div class="row">
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body p-3">
+                      <div class="row">
+                        <div class="col-4 text-end">
+                          <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
+                            <i class="fas fa-users text-lg" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                        <div class="col-8">
+                          <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Visitors Inside</p>
+                            <h5 id="totalVisitorsInside" class="text-info font-weight-bolder mb-0">
+                            {{ data['totalVisitorsInside'] }} Visitors
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body p-3">
+                      <div class="row">
+                        <div class="col-4 text-end">
+                          <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
+                            <i class="fas fa-users text-lg" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                        <div class="col-8">
+                          <div class="numbers">
+                            <p class="text-sm mb-0 text-capitalize font-weight-bold">Total Visitor This Week</p>
+                            <h5 class="font-weight-bolder mb-0">
+                              <span id="totalVisitorsThisWeek">{{ data['totalVisitorsThisWeek'] }}</span>
+                              <span id="totalVisitorsLastWeek" class="text-info text-sm font-weight-bolder">{{ data['totalVisitorsLastWeek'] }} Last Week</span>
+                            </h5>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <div class="card">
+                <div class="card-header pb-0">
+                  <div class="row">
+                    <div class="col-2 text-center">
+                      <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
+                        <i class="fas fa-sort-numeric-down text-lg opacity-10"></i>
+                      </div>
+                    </div>
+                    <div class="col-5">
+                      <h6>
+                        Top 5 Visitors
+                        <p class="text-sm mb-0 mt-0">Top 5 Active Visitors by Duration</p>
+                      </h6>
+                    </div>
+                    <div class="col-5 d-flex">
+                      <div class="col-4 text-center"><i class="fas fa-exclamation-triangle text-sm custom-text-gray"></i><br><p class="text-sm mb-0"><small><strong>< 12 hours</strong></small></p></div>
+                      <div class="col-4 text-center"><i class="fas fa-exclamation-triangle text-sm custom-text-orange"></i><br><p class="text-sm mb-0"><small><strong>> 12 hours</strong></small></p></div>
+                      <div class="col-4 text-center"><i class="fas fa-exclamation-triangle text-sm custom-text-red"></i><br><p class="text-sm mb-0"><small><strong>> 24 hours</strong></small></p></div>
+                    </div>
+                  </div>
+                </div>
+                <div id="top5Visitors" class="card-body pt-0">
+                  {% for row in data['topTamuMasukPalingLama'] %}
+                    <div class="card">
+                      <div class="card-body p-3">
+                        <div class="row">
+                          <div class="col-2 text-center">
+                            <div class="icon icon-shape text-center text-lg">
+                              <i class="fas fa-exclamation-triangle text-lg" style="color:{{ row['color']}}" data-toggle="tooltip"></i>
+                            </div>
+                          </div>
+                          <div class="col-4">
+                            <div class="numbers">
+                              <p class="text-sm mb-0 text-capitalize font-weight-bold">{{ row['date']}}</p>
+                              <h5 class="text-info font-weight-bolder mb-0">
+                                {{ row['license_plate']}}
+                                <span class="text-success text-sm font-weight-bolder">{{ row['destination']}}</span>
+                              </h5>
+                            </div>
+                          </div>
+                          <div class="col-6">
+                            <div class="numbers">
+                              <p class="text-sm mb-0 text-capitalize font-weight-bold"><strong>Camera Name : </strong>{{ row['camera']}}</p>
+                              <h5 class="text-primary font-weight-bolder mb-0">
+                                {{ row['selisih']}}
+                              </h5>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card h-100 pb-4">
+            <div class="card-body p-3">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row h-25">
+                    <div class="col-2 text-end">
+                      <div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
+                        <i class="far fa-clock"></i>
+                      </div>
+                    </div>
+                    <div class="col-10 position-relative d-flex align-items-center">
+                      <h6>Real Time License Plate Scanner Monitor</h6>
+                    </div>
+                  </div>
+                  <div class="row h-75">
+                    <div class="col-12 d-flex align-items-end justify-content-center">
+                      <h1 class="font-weight-bolder display-6"><i class="far fa-bell text-info opacity-8"></i> Status Monitor</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row h-75">
+                <div class="col-12">
+                  <div class="row h-50">
+                    <div class="col-12">
+                      <div id="statusContainer" class="card h-100 card-background card-background-mask-secondary" style="align-items: normal !important;">
+                        <div class="full-background" style="background-image: url('https://i.pinimg.com/originals/32/16/aa/3216aa6ef52d39407011326327f57dec.jpg');background-size: contain;"></div>
+                        <div class="card-body p-4">
+                          <div class="row pt-2"></div>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="row">
+                                <div class="col-8">
+                                  <div class="row mb-0">
+                                    <h6 class="text-white">Status</h6>
+                                  </div>
+                                  <div class="row mb-0">
+                                    <div class="col-12 position-relative d-flex align-items-center justify-content-center">
+                                      <h1 id="statusVisitor" class="text-white font-weight-bolder display-1">-</h1>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-4">
+                                  <div class="row mb-3">
+                                    <h6 class="text-white">Description</h6>
+                                  </div>
+                                  <div class="row mb-0">
+                                    <div class="col-12 position-relative d-flex align-items-center justify-content-center">
+                                      <h5 id="statusArah" class="font-weight-bolder text-white display-4">-</h5>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row h-50 mt-4">
+                    <div class="col-12">
+                      <div id="licensePlateContainer" class="card h-100 card-background card-background-mask-secondary" style="align-items: normal !important;">
+                        <div class="full-background" style="background-image: url('https://i.pinimg.com/originals/32/16/aa/3216aa6ef52d39407011326327f57dec.jpg');background-size: contain;"></div>
+                        <div class="card-body p-4">
+                          <div class="row mt-2"><h6 class="text-white">License Plate</h6></div>
+                          <div class="row">
+                            <div class="col-12 position-relative d-flex align-items-center justify-content-center">
+                              <h1 id="licensePlateVisitor" class="text-white font-weight-bolder display-3">-</h1>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Modal -->
+  <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-danger-pets">
+          <h5 class="modal-title text-white" id="warningModalTitle"> <i class="fas fa-exclamation-triangle"></i> WARNING - Vehicle Locked</h5>
+          <button type="button" class="close btn-close-modal" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="text-white">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Vehicle with License Plate <label id="licensePlateWarningLabel"></label> Status is Locked. Please change your vehicle status before go out.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-warning btn-close-modal" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="putDestinationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header bg-info">
+          <h5 class="modal-title text-white" id="exampleModalLongTitle"> <i class="fa fa-bell" aria-hidden="true"></i> Visitor Destination</h5>
+          <button type="button" class="close btn-close-modal" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true" class="text-white">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="plateDesc"></div>
+          <form id="formDestination">
+            <div class="form-group">
+              <label for="input-destination" class="col-form-label">Destination:</label>
+              <input type="text" class="form-control" id="input-destination" name="destination">
+              <input type="hidden" id="input-id-visitor" name="id">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-warning btn-close-modal" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-outline-primary" id="btnSaveDestination">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+</main>
+</body>
+<!--   Core JS Files   -->
+<script src="../assets/js/core/popper.min.js"></script>
+<script src="../assets/js/core/bootstrap.min.js"></script>
+<script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+<script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+<!--JQuery-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<!-- WebSocket-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function() {
+
+    var socket = io.connect('http://' + document.domain + ':' + location.port + '/mysocket');
+
+    socket.on('my_response', function(data, cb) {
+      if(data){
+        $("#statusContainer").removeClass("card-background-mask-secondary").addClass("card-background-mask-warning");
+        $("#licensePlateContainer").removeClass("card-background-mask-secondary").addClass("card-background-mask-info");
+        $("#statusArah").text(data["response"]["message"]);
+        $("#statusVisitor").text(data["status"]);
+        $("#licensePlateVisitor").text(data["licensePlate"]);
+        $("#totalVisitorsInside").text(data["totalVisitorsInside"]);
+        $("#totalVisitorsThisWeek").text(data["totalVisitorsThisWeek"]);
+        $("#totalVisitorsLastWeek").text(data["totalVisitorsLastWeek"]);
+        $("#top5Visitors").empty();
+
+        $.each(data["topTamuMasukPalingLama"], function(i,row){
+          $("#top5Visitors").append('<div class="card"><div class="card-body p-3"><div class="row"><div class="col-2 text-center"><div class="icon icon-shape text-center text-lg"><i class="fas fa-exclamation-triangle text-lg" style="color:' + row["color"] + '" data-toggle="tooltip"></i></div></div><div class="col-4"><div class="numbers"><p class="text-sm mb-0 text-capitalize font-weight-bold">' + row["date"] + '</p><h5 class="text-info font-weight-bolder mb-0">' + row["license_plate"] + ' <span class="text-success text-sm font-weight-bolder">' + row["destination"] + '</span></h5></div></div><div class="col-6"><div class="numbers"><p class="text-sm mb-0 text-capitalize font-weight-bold"><strong>Camera Name : </strong>' + row["camera"] + '</p><h5 class="text-primary font-weight-bolder mb-0">' + row["selisih"] + '</h5></div></div></div></div></div>');
+        });
+
+        setTimeout(function(){
+          $("#statusContainer").removeClass("card-background-mask-warning").addClass("card-background-mask-secondary");
+          $("#licensePlateContainer").removeClass("card-background-mask-info").addClass("card-background-mask-secondary");
+        },5000)
+
+        if(data['response']['code'] == 1000){
+          $('#licensePlateWarningLabel').text(data["licensePlate"]);
+          $('#warningModal').modal('show');
+        } else if(data['response']['status'] == 'VISITOR' && data['response']['message'] == 'In'){
+          console.log(data['response']['message'])
+          $('#plateDesc').text(data['licensePlate']);
+          $('#putDestinationModal').modal('show');
+          $('#input-id-visitor').val(data['response']['visitorId']);
+        }
+      }
+
+      if (cb){cb();}
+    });
+
+    $('.btn-close-modal').on('click',function(){
+      idModal = '#' + $(this).closest('.modal').attr('id');
+      $(idModal).modal('hide');
+    });
+
+    $('#btnSaveDestination').on('click',function(){
+      var form = document.getElementById('formDestination');
+      var formData = new FormData(form);
+      var sendData = {};
+
+      for ([key, val] of formData){
+        sendData[key] = val;
+      }
+
+      $.ajax({
+        url: 'http://' + document.domain + ':' + location.port + '/dashboard/saveDestination',
+        data: JSON.stringify(sendData),
+        contentType: 'application/json',
+        type: 'POST',
+        success: function(data){
+          $('#input-id-visitor').val('');
+          $('#input-destination').val('');
+          $("#top5Visitors").empty();
+          $.each(data["topTamuMasukPalingLama"], function(i,row){
+            $("#top5Visitors").append('<div class="card"><div class="card-body p-3"><div class="row"><div class="col-2 text-center"><div class="icon icon-shape text-center text-lg"><i class="fas fa-exclamation-triangle text-lg" style="color:' + row["color"] + '" data-toggle="tooltip"></i></div></div><div class="col-4"><div class="numbers"><p class="text-sm mb-0 text-capitalize font-weight-bold">' + row["date"] + '</p><h5 class="text-info font-weight-bolder mb-0">' + row["license_plate"] + ' <span class="text-success text-sm font-weight-bolder">' + row["destination"] + '</span></h5></div></div><div class="col-6"><div class="numbers"><p class="text-sm mb-0 text-capitalize font-weight-bold"><strong>Camera Name : </strong>' + row["camera"] + '</p><h5 class="text-primary font-weight-bolder mb-0">' + row["selisih"] + '</h5></div></div></div></div></div>');
+          });
+        }
+      });
+
+      idModal = '#' + $(this).closest('.modal').attr('id');
+      $(idModal).modal('hide');
+    });
+  });
+</script>
+</html>
